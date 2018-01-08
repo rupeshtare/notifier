@@ -1,0 +1,5 @@
+# Run celery
+celery -A tasks worker -l info
+
+# Run celery beat
+celery beat -A tasks -l info
