@@ -1,15 +1,10 @@
 from celery import Celery
-import time
 
-#Specify mongodb host and datababse to connect to
-BROKER_URL = 'mongodb://localhost:27017/jobs'
 
-celery = Celery('EOD_TASKS',broker=BROKER_URL)
+celery = Celery('NOTIFIER_TASKS', include='sms_tasks')
 
-#Loads settings for Backend to store results of jobs
+# Loads settings for Backend to store results of jobs
 celery.config_from_object('celeryconfig')
 
-@celery.task
-def add(x, y):
-    time.sleep(30)
-    return x + y
+if __name__ == '__main__':
+    celery.start()
